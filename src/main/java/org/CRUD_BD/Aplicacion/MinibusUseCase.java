@@ -5,11 +5,11 @@ import org.CRUD_BD.Domain.Entity.Minibus;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface MinibusResitory {
+public interface MinibusUseCase {
 
     void insertarMinibus(Minibus minibus) throws SQLException;
 
-    List<Minibus> buscarMinibuses() throws SQLException;
+   Minibus buscarMinibus(String placa) throws SQLException;
 
     void actualizarMinibus(Minibus minibus) throws SQLException;
 

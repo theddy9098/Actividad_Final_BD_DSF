@@ -1,13 +1,11 @@
 package org.CRUD_BD.Infraestructura.Persistente;
 
-import org.CRUD_BD.Aplicacion.MinibusResitory;
+import org.CRUD_BD.Aplicacion.MinibusUseCase;
 import org.CRUD_BD.Domain.Entity.Minibus;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
-public class MinibusRepositoryImp implements MinibusResitory {
+public class MinibusRepositoryImp implements MinibusUseCase {
 
     private static final String URL = "jdbc:postgresql://localhost:5432/ruta_escolar";
     private static final String USUARIO = "Teddy_xyz";
@@ -32,24 +30,24 @@ public class MinibusRepositoryImp implements MinibusResitory {
     }
 
     @Override
-    public List<Minibus> buscarMinibuses() throws SQLException {
-        List<Minibus> lista = new ArrayList<>();
-        String sql = "SELECT * FROM minibus";
+    public Minibus buscarMinibus(String placa) throws SQLException {
+        String sql = "SELECT * FROM minibus WHERE placa = ?";
         try (Connection conn = getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                Minibus m = new Minibus(
-                    rs.getString("placa"),
-                    rs.getString("capacidad"),
-                    rs.getString("estado"),
-                    rs.getString("kilometraje"),
-                    rs.getDate("ultimo_mantenimiento")
-                );
-                lista.add(m);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, placa);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Minibus(
+                            rs.getString("placa"),
+                            rs.getString("capacidad"),
+                            rs.getString("estado"),
+                            rs.getString("kilometraje"),
+                            rs.getDate("ultimo_mantenimiento")
+                    );
+                }
             }
         }
-        return lista;
+        return null;
     }
 
     @Override
