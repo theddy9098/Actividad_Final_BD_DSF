@@ -49,4 +49,14 @@ public class Minibus {
     public void setUltimoMantenimiento(Date ultimoMantenimiento) {
         UltimoMantenimiento = ultimoMantenimiento;
     }
+    @Override
+    public String toString() {
+        return "Minibus{" +
+                "Placa='" + Placa + '\'' +
+                ", Capacidad='" + Capacidad + '\'' +
+                ", Estado='" + Estado + '\'' +
+                ", Kilometraje='" + Kilometraje + '\'' +
+                ", UltimoMantenimiento=" + UltimoMantenimiento +
+                '}';
+    }
 }
