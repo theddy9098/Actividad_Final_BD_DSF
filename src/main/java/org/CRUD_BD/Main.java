@@ -5,7 +5,6 @@ import org.CRUD_BD.Infraestructura.Persistente.MinibusRepositoryImp;
 
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
